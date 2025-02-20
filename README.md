@@ -12,20 +12,13 @@ using **Cppcheck** (for C/C++) and **Semgrep** (for multiple languages).
 - 📊 **GitHub Security Dashboard Integration** – Reports are uploaded to GitHub’s security panel.
 - 📂 **SARIF Report Uploads** – Allows reviewing scan results directly in GitHub.
 
----
-## 📁 Repository Structure
-📦 security-testing-repo ├── .github/workflows/ # GitHub Actions workflows │ ├── cppcheck.yml # Cppcheck security scan │ ├── semgrep.yml # Semgrep security scan ├── vulnerable-source-code/ # Directory with intentionally vulnerable code │ ├── test.c # Example vulnerable C code │ ├── test.cpp # Example vulnerable C++ code ├── README.md # This file
-
-markdown
-Copy
-Edit
 
 ---
 
 ## ⚡ GitHub Actions Workflows
 
 ### 🔹 **Cppcheck (C/C++ Security Scan)**
-- **Runs on:** `push` to `master` diff-aware and on demand
+- **Runs on:** `push` to `main` diff-aware and on demand
 - **Scans:** `vulnerable-source-code/`
 - **Uploads:** SARIF results to the **GitHub Security Dashboard**.
 
@@ -33,7 +26,7 @@ Edit
 📄 `.github/workflows/cppcheck.yml`
 
 ### 🔹 **Semgrep (Static Code Analysis)**
-- **Runs on:** `push` to `master` diff-aware and on demand
+- **Runs on:** `push` to `main` diff-aware and on demand
 - **Scans:** `vulnerable-source-code/`
 - **Uploads:** SARIF reports for **GitHub Code Scanning Alerts**.
 
