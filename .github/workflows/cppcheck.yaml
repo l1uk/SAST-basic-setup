@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Cppcheck Analysis
         run: |
-          cppcheck --enable=all --inconclusive --quiet --xml 2> cppcheck-results.xml || true
+          cppcheck vulnerable-source-code --enable=all --inconclusive --quiet --xml 2> cppcheck-results.xml || true
 
       - name: Convert XML to SARIF
         uses: github/codeql-action/upload-sarif@v3
