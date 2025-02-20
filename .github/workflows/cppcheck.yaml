@@ -31,10 +31,15 @@ jobs:
           cppcheck vulnerable-source-code --enable=all --inconclusive --quiet --xml 2> cppcheck-results.xml || true
 
       - name: Convert XML to SARIF
-        uses: github/codeql-action/upload-sarif@v3
+      - uses: Flast/cppcheck-sarif@v2
         with:
-          sarif_file: cppcheck-results.xml
-        if: always()
+          input: cppcheck-results.xml
+          output: report.sarif
+
+      - uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: report.sarif
+          category: cppcheck
 
       - name: Save Cppcheck Results as Artifact
         uses: actions/upload-artifact@v4
