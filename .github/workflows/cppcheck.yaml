@@ -1,4 +1,4 @@
-name: cppcheck
+name: Cppcheck
 
 on:
   push:
@@ -6,28 +6,34 @@ on:
       - master
 
 jobs:
-  upload-sarif:
-    runs-on: ubuntu-24.04
+  cppcheck_scan:
+    runs-on: ubuntu-latest
     permissions:
       security-events: write
       actions: read
       contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - run: |
-          sudo apt-get install -y cppcheck
+      - name: Install Cppcheck
+        run: |
+          sudo apt update && sudo apt install -y cppcheck
 
-      - run: |
-          cppcheck vulnerable-source-code --enable=all --inconclusive --quiet --xml 2> report.xml || true
+      - name: Run Cppcheck Analysis
+        run: |
+          mkdir -p security_reports
+          cppcheck vulnerable-source-code --enable=all --inconclusive --quiet --xml 2> security_reports/report.xml || true
 
-      - uses: Flast/cppcheck-sarif@v2
+      - name: Convert XML to SARIF
+        uses: Flast/cppcheck-sarif@v2
         with:
-          input: report.xml
-          output: report.sarif
+          input: security_reports/report.xml
+          output: security_reports/report.sarif
 
-      - uses: github/codeql-action/upload-sarif@v3
+      - name: Upload SARIF Report to GitHub Security Dashboard
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: report.sarif
+          sarif_file: security_reports/report.sarif
           category: cppcheck
-        
