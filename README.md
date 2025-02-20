@@ -25,7 +25,7 @@ Edit
 ## ⚡ GitHub Actions Workflows
 
 ### 🔹 **Cppcheck (C/C++ Security Scan)**
-- **Runs on:** `push` to `master`
+- **Runs on:** `push` to `master` diff-aware and on demand
 - **Scans:** `vulnerable-source-code/`
 - **Uploads:** SARIF results to the **GitHub Security Dashboard**.
 
@@ -33,7 +33,7 @@ Edit
 📄 `.github/workflows/cppcheck.yml`
 
 ### 🔹 **Semgrep (Static Code Analysis)**
-- **Runs on:** `push`, `pull_request`
+- **Runs on:** `push` to `master` diff-aware and on demand
 - **Scans:** `vulnerable-source-code/`
 - **Uploads:** SARIF reports for **GitHub Code Scanning Alerts**.
 
